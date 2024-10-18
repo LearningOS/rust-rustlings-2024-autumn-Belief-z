@@ -1,19 +1,21 @@
 //! This is the build script for both tests7 and tests8.
 //!
 //! You should modify this file to make both exercises pass.
-
 fn main() {
     // In tests7, we should set up an environment variable
-    println!("cargo:rustc-env=TEST_FOO=foo_value");
     // called `TEST_FOO`. Print in the standard output to let
     // Cargo do it.
     let timestamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_secs(); // What's the use of this timestamp here?
-    println!("cargo:rustc-env=TEST_FOO={}", timestamp);
-    println!("cargo:rerun-if-changed=build.rs");
 
+    println!("cargo:rustc-env=TEST_FOO={}", timestamp);
+    let your_command = format!(
+        "Timestamp used for debugging: {}. Check exercises/tests/build.rs.",
+        timestamp
+    );
+    println!("cargo:warning={}", your_command);
     // In tests8, we should enable "pass" feature to make the
     // testcase return early. Fill in the command to tell
     // Cargo about that.
