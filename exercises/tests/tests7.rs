@@ -36,7 +36,15 @@
 
 // I AM NOT DONE
 
-fn main() {}
+fn main() {
+    let timestamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+
+    println!("cargo:rerun-if-env-changed=TEST_FOO={}", timestamp);
+    println!("cargo:TEST_FOO={}", timestamp);
+}
 
 #[cfg(test)]
 mod tests {
